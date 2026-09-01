@@ -13,16 +13,20 @@ import urllib.request
 # SYSTEM DEPENDENCIES & TESSERACT CONFIG
 # ============================================================
 
-TESSERACT_PATH = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+import shutil
+import subprocess
 
-import os
-import pytesseract
-
+# Automatically find tesseract binary across Windows and Linux (Streamlit Cloud)
 if os.name == 'nt':
     pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 else:
-    # Linux / Streamlit Cloud looks up tesseract automatically via PATH
-    pass
+    # Explicitly find tesseract via Linux system path or default location
+    tesseract_path = shutil.which("tesseract")
+    if tesseract_path:
+        pytesseract.pytesseract.tesseract_cmd = tesseract_path
+    else:
+        # Fallback standard Linux path
+        pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
 
 
 # ============================================================
