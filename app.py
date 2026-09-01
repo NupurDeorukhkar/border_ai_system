@@ -15,8 +15,14 @@ import urllib.request
 
 TESSERACT_PATH = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
-if os.path.exists(TESSERACT_PATH):
-    pytesseract.pytesseract.tesseract_cmd = TESSERACT_PATH
+import os
+import pytesseract
+
+if os.name == 'nt':
+    pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+else:
+    # Linux / Streamlit Cloud looks up tesseract automatically via PATH
+    pass
 
 
 # ============================================================
