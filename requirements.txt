@@ -1,6 +1,0 @@
-streamlit
-numpy
-opencv-python
-pillow
-pytesseract
-deepface
